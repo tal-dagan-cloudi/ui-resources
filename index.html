@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UI Resources</title>
+<meta name="description" content="Curated UI libraries, animation tools, inspiration galleries and design systems, by category.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+<style>
+  :root {
+    --bg: #fafaf9; --card: #ffffff; --text: #1c1917; --muted: #78716c;
+    --border: #e7e5e4; --accent: #4f46e5; --accent-soft: #eef2ff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0c0a09; --card: #1c1917; --text: #f5f5f4; --muted: #a8a29e;
+      --border: #292524; --accent: #818cf8; --accent-soft: #1e1b4b;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  main { max-width: 1100px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 28px; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 20px; }
+  input[type=search] {
+    width: 100%; padding: 10px 14px; font: inherit; color: var(--text);
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+  }
+  input[type=search]:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 8px; }
+  nav a {
+    font-size: 13px; padding: 4px 10px; border-radius: 999px; text-decoration: none;
+    color: var(--accent); background: var(--accent-soft);
+  }
+  section { margin-top: 32px; }
+  h2 { font-size: 18px; margin: 0 0 12px; display: flex; gap: 8px; align-items: baseline; }
+  h2 small { color: var(--muted); font-weight: 400; font-size: 13px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .card {
+    display: block; padding: 14px 16px; border-radius: 12px; text-decoration: none; color: inherit;
+    background: var(--card); border: 1px solid var(--border); transition: border-color .15s, transform .15s;
+  }
+  .card:hover, .card:focus-visible { border-color: var(--accent); transform: translateY(-1px); }
+  .name { font-weight: 600; display: flex; align-items: center; gap: 8px; }
+  .name img { width: 16px; height: 16px; border-radius: 3px; }
+  .url { color: var(--muted); font-size: 12px; word-break: break-all; }
+  .desc { margin: 6px 0 0; font-size: 14px; }
+  .featured { border-color: var(--accent); background: var(--accent-soft); }
+  .hidden { display: none; }
+  footer { margin-top: 48px; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>🎨 UI Resources</h1>
+  <p class="sub">Component libraries, animation tools, inspiration and design systems, sorted by category.</p>
+  <input type="search" id="q" placeholder="Filter (e.g. react, animation, icons)…" aria-label="Filter resources">
+  <nav id="toc"></nav>
+  <div id="list"></div>
+  <footer>Tip: bookmark this page (⌘D / Ctrl+D). Every card opens in a new tab.</footer>
+</main>
+
+<script>
+const DATA = [
+  { title: "⭐ Start here", items: [
+    ["UI Skills", "https://www.ui-skills.com/", "A catalog of reusable skills/instructions that teach AI coding agents interface design and frontend engineering. Available via CLI and an MCP connector."],
+  ]},
+  { title: "UI Libraries & Components", items: [
+    ["Spell UI", "https://spell.sh/", "Polished React components for design engineers, built to drop into any project."],
+    ["21st.dev", "https://21st.dev/", "Community marketplace of shadcn-style React/Tailwind components, with an AI agent that generates and installs components for you."],
+    ["HeroUI", "https://heroui.com/", "Beautiful, accessible React UI library built on Tailwind CSS and React Aria (formerly NextUI)."],
+    ["Preline UI", "https://preline.co/", "Open-source Tailwind CSS components, blocks and templates, with optional JS plugins."],
+    ["Mantine", "https://mantine.dev/", "Full-featured React component library with 100+ components and 50+ hooks, forms, dates, charts and more."],
+    ["Ant Design", "https://ant.design/", "Enterprise-grade React design system and component library from Alibaba, strong for dashboards and admin apps."],
+    ["Float UI", "https://floatui.com/", "Free, copy-paste Tailwind CSS components and website templates for React, Vue and HTML."],
+    ["Flowbite", "https://flowbite.com/", "Large open-source library of Tailwind CSS components, with versions for React, Vue, Svelte and Figma."],
+    ["shadcn/ui", "https://ui.shadcn.com/", "Accessible, copy-into-your-project components built on Radix and Tailwind. You own the code. Today's de-facto standard."],
+    ["Magic UI", "https://magicui.design/", "150+ free animated components and effects for React, Tailwind and Motion, made for landing pages."],
+    ["Headless UI", "https://headlessui.com/", "Unstyled, fully accessible UI primitives for React and Vue from the Tailwind CSS team."],
+    ["Tremor", "https://www.tremor.so/", "React components and charts for building dashboards and analytics interfaces with Tailwind."],
+    ["Cult UI", "https://www.cult-ui.com/", "Stylish, animated shadcn-compatible components and blocks for React."],
+    ["Aceternity UI", "https://ui.aceternity.com/", "Eye-catching animated Tailwind + Framer Motion components: spotlights, 3D cards, beams, parallax."],
+    ["Eldora UI", "https://www.eldoraui.site/", "Open-source animated React components and templates built with Tailwind and Framer Motion."],
+    ["daisyUI", "https://daisyui.com/?lang=en", "The most popular Tailwind CSS component plugin: semantic class names (btn, card) plus many built-in themes."],
+    ["Vengeance UI", "https://www.vengenceui.com/", "Open-source animated, interactive React/Next.js components for marketing sites, installed via the shadcn CLI."],
+    ["Origin UI (Angular)", "https://www.originui-ng.com/", "Angular port of Origin UI: a large collection of copy-paste Tailwind components for Angular apps."],
+  ]},
+  { title: "Animations, Effects & Video", items: [
+    ["GSAP", "https://gsap.com/", "Industry-standard JavaScript animation library: timelines, ScrollTrigger, SVG morphing. Now 100% free, plugins included."],
+    ["Motion", "https://motion.dev/", "Animation library for React, JS and Vue (formerly Framer Motion): springs, gestures, layout animations."],
+    ["Anime.js", "https://animejs.com/", "Lightweight, flexible JavaScript animation engine for CSS, SVG, DOM attributes and JS objects."],
+    ["Shaders", "https://shaders.com/", "Open-source WebGPU shader components for React, Vue, Svelte and Solid, plus a Pro tier with a visual editor."],
+    ["Jitter", "https://jitter.video/", "Browser-based motion design tool. Animate designs (including Figma imports) and export video, GIF or Lottie."],
+    ["Swishy", "https://www.swishy.ai/", "AI motion design platform for animated text, motion graphics and social content from templates or prompts."],
+    ["LottieFiles", "https://lottiefiles.com/", "Huge library of free Lottie animations, plus tools to create, edit and embed lightweight vector animations."],
+    ["Animmaster Lib", "https://animmasterlib.dev/", "Paid collection of 300 prebuilt animated UI components: scroll, hover, WebGL and 3D effects."],
+  ]},
+  { title: "Inspiration, Icons & Other Tools", items: [
+    ["UI.live", "https://ui.live/", "Community platform where designers share their work, climb trending and leaderboard pages, and browse others' designs."],
+    ["Uiverse", "https://uiverse.io/", "Thousands of open-source, community-made UI elements (buttons, loaders, cards) in HTML/CSS and Tailwind. Copy and paste."],
+    ["Iconsax", "https://iconsax.io/", "1,000+ icons in six styles (linear, bold, bulk, twotone…) for web, Figma and React."],
+    ["Lucide", "https://lucide.dev/", "Beautiful, consistent open-source icon set (fork of Feather), with packages for every major framework."],
+    ["Mobbin", "https://mobbin.com/", "Massive library of real app screenshots and user flows from top iOS, Android and web products."],
+    ["Landings", "https://landings.dev/", "Curated gallery of great landing pages for inspiration."],
+    ["Recent", "https://recent.design/", "Curated inspiration across web, branding, motion, illustration and print, plus a design job board."],
+    ["Dark Design", "https://www.dark.design/", "Hand-picked gallery of the best dark-themed websites."],
+    ["Ripplix", "https://www.ripplix.com/", "Catalog of motion effects recorded from 1,000+ live apps and sites, each with an AI prompt to rebuild it."],
+    ["Design Spells", "https://designspells.com/", "Collection of delightful micro-interactions and details that make interfaces feel magical."],
+    ["Phosphor Icons", "https://phosphoricons.com/", "Flexible icon family with 1,500+ icons in six weights (thin to fill, plus duotone)."],
+  ]},
+  { title: "Design Systems", items: [
+    ["Material Design 3", "https://m3.material.io/", "Google's latest design system: guidelines, components, dynamic color and design tokens."],
+    ["Open UI: Design Systems", "https://open-ui.org/design-systems/", "W3C community index comparing how major design systems implement common components."],
+    ["OpenDesign: Systems", "https://open-design.ai/plugins/systems/", "Catalog of design systems, visual styles and guides that AI agents can use to build UIs."],
+    ["Apple Design System", "https://github.com/mjmirza/apple-design-system", "GitHub repo that recreates Apple's design language (HIG-style tokens and components) for your own projects."],
+  ]},
+];
+
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
+document.getElementById("toc").innerHTML = DATA
+  .map(c => `<a href="#${slug(c.title)}">${esc(c.title)}</a>`).join("");
+
+document.getElementById("list").innerHTML = DATA.map((c, i) => `
+  <section id="${slug(c.title)}">
+    <h2>${esc(c.title)} <small>${c.items.length}</small></h2>
+    <div class="grid">${c.items.map(([name, url, desc]) => `
+      <a class="card${i === 0 ? " featured" : ""}" href="${esc(url)}" target="_blank" rel="noopener">
+        <div class="name"><img src="https://www.google.com/s2/favicons?sz=32&domain=${new URL(url).hostname}" alt="" loading="lazy">${esc(name)}</div>
+        <div class="url">${esc(url.replace(/^https:\/\//, ""))}</div>
+        <p class="desc">${esc(desc)}</p>
+      </a>`).join("")}
+    </div>
+  </section>`).join("");
+
+document.getElementById("q").addEventListener("input", e => {
+  const q = e.target.value.trim().toLowerCase();
+  document.querySelectorAll("section").forEach(sec => {
+    let shown = 0;
+    sec.querySelectorAll(".card").forEach(card => {
+      const hit = card.textContent.toLowerCase().includes(q);
+      card.classList.toggle("hidden", !hit);
+      shown += hit;
+    });
+    sec.classList.toggle("hidden", shown === 0);
+  });
+});
+</script>
+</body>
+</html>
